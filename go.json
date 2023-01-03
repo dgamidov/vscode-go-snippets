@@ -126,5 +126,23 @@
 			"\trows++",
 			"}"
 		]
+	},
+	"Walk dir return files": {
+		"prefix": ["wd"],
+		"body": [
+			"files := make([]string, 0, 10)",
+			"",
+			"err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {",
+			"\tif !d.IsDir() {",
+			"\t\tfullPath := fmt.Sprintf(\"%s/%s\", path, d.Name())",
+			"\t\tfiles = append(files, fullPath)",
+			"\t}",
+			"return nil",
+			"})",
+			"if err != nil {",
+			"\treturn files, err",
+			"}",
+			"$0",
+		]
 	}
 }
