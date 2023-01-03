@@ -110,8 +110,9 @@
 		"body": [
 			"var rows int",
 			"",
+			"r := bufio.NewReader($1)",
 			"for {",
-			"\tline, err := f.ReadString('\\n')",
+			"\tline, err := r.ReadString('\\n')",
 			"\tif err == io.EOF {",
 			"\t\tlog.Printf(\"Got EOF\")",
 			"\t\tbreak",
