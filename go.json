@@ -1,0 +1,130 @@
+{
+	// Place your snippets for go here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"Main package": {
+		"prefix": ["main"],
+		"body": [
+			"package main",
+			"",
+			"func main() {",
+			"\t$0",
+			"}",
+		],
+		"description": "Main package"
+	},
+	"Return err if err != nil": {
+		"prefix": ["e"],
+		"body": [
+			"if err != nil {",
+			"\treturn err",
+			"}",
+			"$0",
+		]
+	},
+	"Log.Fatalf if err != nil": {
+		"prefix": ["elff"],
+		"body": [
+			"if err != nil {",
+			"\tlog.Fatalf(\"%s\", err)",
+			"}",
+			"$0",
+		]
+	},
+	"Log.Fatalf": {
+		"prefix": ["lff"],
+		"body": "log.Fatalf(\"%s\", err)"
+	},
+	"Open file": {
+		"prefix": ["fo"],
+		"body": [
+			"f, err := os.Open(filename)",
+			"if err != nil {",
+				"\treturn err",
+			"}",
+			"defer f.Close()",
+			"$0",
+		]
+	},
+	"Open zip for files processing": {
+		"prefix": ["zo"],
+		"body": [
+			"z, err := zip.OpenReader(zipfile)",
+			"if err != nil {",
+				"\treturn err",
+			"}",
+			"defer z.Close()",
+			"",
+			"for _, file := range z.File {",
+			"\tf, err := file.Open()",
+			"\tif err != nil {",
+			"\t\treturn err",
+			"\t}",
+			"\tdefer f.Close()",
+			"\t$0",
+			"}",
+		]
+	},
+	"Do post request": {
+		"prefix": ["post"],
+		"body": [
+			"client := &http.Client{}",
+			"req, err := http.NewRequest(\"POST\", url, body)",
+			"req.Header.Add(\"Accept-Encoding\", \"gzip\")",
+			"resp, err := client.Do(req)",
+			"if err != nil {",
+			"\treturn fmt.Errorf(\"failed to do request: %s\", err)",
+			"}",
+			"defer func(Body io.ReadCloser) {",
+			"\terr := Body.Close()",
+			"\tif err != nil {",
+			"\t\tlog.Printf(\"Failed to close body: %s\", err)",
+			"\t}",
+			"}(resp.Body)",
+			"$0",
+		]
+	},
+	"Read response body all": {
+		"prefix": ["rrba"],
+		"body": [
+			"b, err := io.ReadAll(resp.Body)",
+			"if err != nil {",
+			"\treturn fmt.Errorf(\"failed to read http response body: %s\", err)",
+			"}",
+			"$0",
+		]
+	},
+	"Read line by line": {
+		"prefix": ["rlbl"],
+		"body": [
+			"var rows int",
+			"",
+			"for {",
+			"\tline, err := f.ReadString('\\n')",
+			"\tif err == io.EOF {",
+			"\t\tlog.Printf(\"Got EOF\")",
+			"\t\tbreak",
+			"\t}",
+			"\tif err != nil {",
+			"\t\treturn err",
+			"\t}",
+			"\tif len(line) == 0 {",
+			"\t\treturn fmt.Errorf(\"got line with zero length\")",
+			"\t}",
+			"\t$0",
+			"\trows++",
+			"}"
+		]
+	}
+}
