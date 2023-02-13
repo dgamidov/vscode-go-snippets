@@ -42,6 +42,54 @@
 			"$0",
 		]
 	},
+	"t.Errorf if err != nil": {
+		"prefix": ["te"],
+		"body": [
+			"if err != nil {",
+			"\tt.Errorf(\"expected no errors, but got error: %s\", err)",
+			"}",
+			"$0",
+		]
+	},
+	"t.Fatalf if err != nil": {
+		"prefix": ["tf"],
+		"body": [
+			"if err != nil {",
+			"\tt.Fatalf(\"expected no errors, but got error: %s\", err)",
+			"}",
+			"$0",
+		]
+	},
+	"Test table": {
+		"prefix": ["tt"],
+		"body": [
+			"for _, d := range data {",
+			"\tt.Run(d.name, func(t *testing.T) {",
+			"\t\tresult, err := $1",
+			"\t\tif result != d.expected {",
+			"\t\t\tt.Errorf(\"Expected %d, got %d\", d.expected, result)",
+			"\t\t}",
+			"\t\tvar errMsg string",
+			"\t\tif err != nil {",
+			"\t\t\terrMsg = err.Error()",
+			"\t\t}",
+			"\t\tif errMsg != d.errMsg {",
+			"\t\t\tt.Errorf(\"Expected error message `%s`, got `%s`\", d.errMsg, errMsg)",
+			"\t\t}",
+			"\t})",
+			"}",
+			"$0",
+		]
+	},
+	"Test wanted": {
+		"prefix": ["tw"],
+		"body": [
+			"if $1 != wanted {",
+			"\tt.Errorf(\"expected %q, but got %q\", wanted, $1)",
+			"}",
+			"$0",
+		]
+	},
 	"Log.Fatalf": {
 		"prefix": ["lff"],
 		"body": "log.Fatalf(\"%s\", err)"
@@ -82,6 +130,24 @@
 			"client := &http.Client{}",
 			"req, err := http.NewRequest(\"POST\", url, body)",
 			"req.Header.Add(\"Accept-Encoding\", \"gzip\")",
+			"resp, err := client.Do(req)",
+			"if err != nil {",
+			"\treturn fmt.Errorf(\"failed to do request: %s\", err)",
+			"}",
+			"defer func(Body io.ReadCloser) {",
+			"\terr := Body.Close()",
+			"\tif err != nil {",
+			"\t\tlog.Printf(\"Failed to close body: %s\", err)",
+			"\t}",
+			"}(resp.Body)",
+			"$0",
+		]
+	},
+	"Do get request": {
+		"prefix": ["get"],
+		"body": [
+			"client := &http.Client{}",
+			"req, err := http.NewRequest(\"GET\", url)",
 			"resp, err := client.Do(req)",
 			"if err != nil {",
 			"\treturn fmt.Errorf(\"failed to do request: %s\", err)",
@@ -145,5 +211,33 @@
 			"}",
 			"$0",
 		]
+	},
+	"Regexp one line": {
+		"prefix": ["reone"],
+		"body": [
+			"re := regexp.MustCompile(`$1`)",
+			"m := re.FindString(line)",
+			"if m == \"\" {",
+			"\t$2",
+			"}",
+			"$0",
+		]
+	},
+	"Flag": {
+		"prefix": ["flg"],
+		"body": [
+			"var sep = flag.String(\"s\", \" \", \"separator\")",
+			"flag.Parse()",
+			"fmt.Printf(\"Separator: %s\n\", *sep)",
+			"$0",
+		]
+	},
+	"JSON struct": {
+		"prefix": ["json"],
+		"body": "`json:\"$0\"`"
+	},
+	"Timestamp now": {
+		"prefix": ["tsnow"],
+		"body": "time.Now().Unix()"
 	}
 }
