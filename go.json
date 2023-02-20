@@ -84,8 +84,17 @@
 	"Test wanted": {
 		"prefix": ["tw"],
 		"body": [
-			"if $1 != wanted {",
-			"\tt.Errorf(\"expected %q, but got %q\", wanted, $1)",
+			"if $1 != $2 {",
+			"\tt.Errorf(\"expected %q, but got %q\", $2, $1)",
+			"}",
+			"$0",
+		]
+	},
+	"Test compare": {
+		"prefix": ["tcmp"],
+		"body": [
+			"if diff := cmp.Diff($1, $2); diff != \"\" {",
+			"\tt.Errorf(diff)",
 			"}",
 			"$0",
 		]
@@ -239,5 +248,9 @@
 	"Timestamp now": {
 		"prefix": ["tsnow"],
 		"body": "time.Now().Unix()"
+	},
+	"Time sleep": {
+		"prefix": ["ts"],
+		"body": "time.Sleep(time.Duration(1 * time.Second))"
 	}
 }
