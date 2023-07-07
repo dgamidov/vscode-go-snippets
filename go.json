@@ -33,6 +33,19 @@
 			"$0",
 		]
 	},
+	"Return wrapped err if err != nil": {
+		"prefix": ["ew"],
+		"body": [
+			"if err != nil {",
+			"\treturn nil, fmt.Errorf(\"%s: %w\", op, err)",
+			"}",
+			"$0",
+		]
+	},
+	"Expected an error but got nil": {
+		"prefix": "ee",
+		"body": "t.Errorf(\"expected an error, but got nil\")"
+	},
 	"Log.Fatalf if err != nil": {
 		"prefix": ["elff"],
 		"body": [
@@ -252,5 +265,9 @@
 	"Time sleep": {
 		"prefix": ["ts"],
 		"body": "time.Sleep(time.Duration(1 * time.Second))"
+	},
+	"Operation": {
+		"prefix": ["op"],
+		"body": "const op = \"$0\""
 	}
 }
