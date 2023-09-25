@@ -286,6 +286,6 @@
 	},
 	"Gosec ignore": {
 		"prefix": ["ns"],
-		"body": " //#nosec CWE-676"
+		"body": "//#nosec CWE-676$0"
 	}
 }
