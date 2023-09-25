@@ -64,6 +64,15 @@
 			"$0",
 		]
 	},
+	"t.Errorf if err != nil": {
+		"prefix": ["ten"],
+		"body": [
+			"if err == nil {",
+			"\tt.Errorf(\"expected an error, but got nil\")",
+			"}",
+			"$0",
+		]
+	},
 	"t.Fatalf if err != nil": {
 		"prefix": ["tf"],
 		"body": [
@@ -97,8 +106,9 @@
 	"Test wanted": {
 		"prefix": ["tw"],
 		"body": [
-			"if $1 != $2 {",
-			"\tt.Errorf(\"expected %q, but got %q\", $2, $1)",
+			"wantedError := $1"
+			"if err.Error() != wantedError {",
+			"\tt.Errorf(\"expected %q, but got %q\", wantedError, err.Error())",
 			"}",
 			"$0",
 		]
@@ -269,5 +279,13 @@
 	"Operation": {
 		"prefix": ["op"],
 		"body": "const op = \"$0\""
+	},
+	"Log struct": {
+		"prefix": ["ls"],
+		"body": "log.Printf(\"%+v\", $0)"
+	},
+	"Gosec ignore": {
+		"prefix": ["ns"],
+		"body": " //#nosec CWE-676"
 	}
 }
