@@ -1,45 +1,37 @@
 {
-	// Place your snippets for go here. Each snippet is defined under a snippet name and has a prefix, body and 
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-
 	"Main package": {
-		"prefix": ["main"],
+		"prefix": [
+			"main"
+		],
 		"body": [
 			"package main",
 			"",
 			"func main() {",
 			"\t$0",
-			"}",
+			"}"
 		],
 		"description": "Main package"
 	},
 	"Return err if err != nil": {
-		"prefix": ["e"],
+		"prefix": [
+			"e"
+		],
 		"body": [
 			"if err != nil {",
 			"\treturn err",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Return wrapped err if err != nil": {
-		"prefix": ["ew"],
+		"prefix": [
+			"ew"
+		],
 		"body": [
 			"if err != nil {",
 			"\treturn nil, fmt.Errorf(\"%s: %w\", op, err)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Expected an error but got nil": {
@@ -47,43 +39,53 @@
 		"body": "t.Errorf(\"expected an error, but got nil\")"
 	},
 	"Log.Fatalf if err != nil": {
-		"prefix": ["elff"],
+		"prefix": [
+			"elff"
+		],
 		"body": [
 			"if err != nil {",
 			"\tlog.Fatalf(\"%s\", err)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"t.Errorf if err != nil": {
-		"prefix": ["te"],
+		"prefix": [
+			"te"
+		],
 		"body": [
 			"if err != nil {",
 			"\tt.Errorf(\"expected no errors, but got error: %s\", err)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
-	"t.Errorf if err != nil": {
-		"prefix": ["ten"],
+	"t.Errorf if err == nil": {
+		"prefix": [
+			"ten"
+		],
 		"body": [
 			"if err == nil {",
 			"\tt.Errorf(\"expected an error, but got nil\")",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"t.Fatalf if err != nil": {
-		"prefix": ["tf"],
+		"prefix": [
+			"tf"
+		],
 		"body": [
 			"if err != nil {",
 			"\tt.Fatalf(\"expected no errors, but got error: %s\", err)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Test table": {
-		"prefix": ["tt"],
+		"prefix": [
+			"tt"
+		],
 		"body": [
 			"for _, d := range data {",
 			"\tt.Run(d.name, func(t *testing.T) {",
@@ -100,49 +102,59 @@
 			"\t\t}",
 			"\t})",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Test wanted": {
-		"prefix": ["tw"],
+		"prefix": [
+			"tw"
+		],
 		"body": [
-			"wantedError := $1"
+			"wantedError := $1",
 			"if err.Error() != wantedError {",
 			"\tt.Errorf(\"expected %q, but got %q\", wantedError, err.Error())",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Test compare": {
-		"prefix": ["tcmp"],
+		"prefix": [
+			"tcmp"
+		],
 		"body": [
 			"if diff := cmp.Diff($1, $2); diff != \"\" {",
 			"\tt.Errorf(diff)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Log.Fatalf": {
-		"prefix": ["lff"],
+		"prefix": [
+			"lff"
+		],
 		"body": "log.Fatalf(\"%s\", err)"
 	},
 	"Open file": {
-		"prefix": ["fo"],
+		"prefix": [
+			"fo"
+		],
 		"body": [
 			"f, err := os.Open(filename)",
 			"if err != nil {",
-				"\treturn err",
+			"\treturn err",
 			"}",
 			"defer f.Close()",
-			"$0",
+			"$0"
 		]
 	},
 	"Open zip for files processing": {
-		"prefix": ["zo"],
+		"prefix": [
+			"zo"
+		],
 		"body": [
 			"z, err := zip.OpenReader(zipfile)",
 			"if err != nil {",
-				"\treturn err",
+			"\treturn err",
 			"}",
 			"defer z.Close()",
 			"",
@@ -153,11 +165,13 @@
 			"\t}",
 			"\tdefer f.Close()",
 			"\t$0",
-			"}",
+			"}"
 		]
 	},
 	"Do post request": {
-		"prefix": ["post"],
+		"prefix": [
+			"post"
+		],
 		"body": [
 			"client := &http.Client{}",
 			"req, err := http.NewRequest(\"POST\", url, body)",
@@ -172,11 +186,13 @@
 			"\t\tlog.Printf(\"Failed to close body: %s\", err)",
 			"\t}",
 			"}(resp.Body)",
-			"$0",
+			"$0"
 		]
 	},
 	"Do get request": {
-		"prefix": ["get"],
+		"prefix": [
+			"get"
+		],
 		"body": [
 			"client := &http.Client{}",
 			"req, err := http.NewRequest(\"GET\", url)",
@@ -190,21 +206,25 @@
 			"\t\tlog.Printf(\"Failed to close body: %s\", err)",
 			"\t}",
 			"}(resp.Body)",
-			"$0",
+			"$0"
 		]
 	},
 	"Read response body all": {
-		"prefix": ["rrba"],
+		"prefix": [
+			"rrba"
+		],
 		"body": [
 			"b, err := io.ReadAll(resp.Body)",
 			"if err != nil {",
 			"\treturn fmt.Errorf(\"failed to read http response body: %s\", err)",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Read line by line": {
-		"prefix": ["rlbl"],
+		"prefix": [
+			"rlbl"
+		],
 		"body": [
 			"var rows int",
 			"",
@@ -227,7 +247,9 @@
 		]
 	},
 	"Walk dir return files": {
-		"prefix": ["wd"],
+		"prefix": [
+			"wd"
+		],
 		"body": [
 			"files := make([]string, 0, 10)",
 			"",
@@ -241,51 +263,67 @@
 			"if err != nil {",
 			"\treturn files, err",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Regexp one line": {
-		"prefix": ["reone"],
+		"prefix": [
+			"reone"
+		],
 		"body": [
 			"re := regexp.MustCompile(`$1`)",
 			"m := re.FindString(line)",
 			"if m == \"\" {",
 			"\t$2",
 			"}",
-			"$0",
+			"$0"
 		]
 	},
 	"Flag": {
-		"prefix": ["flg"],
+		"prefix": [
+			"flg"
+		],
 		"body": [
 			"var sep = flag.String(\"s\", \" \", \"separator\")",
 			"flag.Parse()",
 			"fmt.Printf(\"Separator: %s\n\", *sep)",
-			"$0",
+			"$0"
 		]
 	},
 	"JSON struct": {
-		"prefix": ["json"],
+		"prefix": [
+			"json"
+		],
 		"body": "`json:\"$0\"`"
 	},
 	"Timestamp now": {
-		"prefix": ["tsnow"],
+		"prefix": [
+			"tsnow"
+		],
 		"body": "time.Now().Unix()"
 	},
 	"Time sleep": {
-		"prefix": ["ts"],
-		"body": "time.Sleep(time.Duration(1 * time.Second))"
+		"prefix": [
+			"ts"
+		],
+		"body": "time.Sleep(1 * time.Second)"
 	},
 	"Operation": {
-		"prefix": ["op"],
+		"prefix": [
+			"op"
+		],
 		"body": "const op = \"$0\""
 	},
 	"Log struct": {
-		"prefix": ["ls"],
+		"prefix": [
+			"ls"
+		],
 		"body": "log.Printf(\"%+v\", $0)"
 	},
 	"Gosec ignore": {
-		"prefix": ["ns"],
+		"prefix": [
+			"ns"
+		],
 		"body": "//#nosec CWE-676$0"
 	}
 }
